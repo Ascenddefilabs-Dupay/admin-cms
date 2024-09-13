@@ -46,6 +46,5 @@ class AdminCMSView(APIView):
         serializer = AdminCMSSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "Data added successfully"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "Data added successfully", "data": serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
