@@ -1,7 +1,8 @@
 from django.db import models
 
 class AdminCMS(models.Model):
-    account_type = models.CharField(max_length=100,primary_key=True, blank=True)
+    id = models.AutoField(primary_key=True) 
+    account_type = models.CharField(max_length=100,null=True, blank=True)
     currency_type = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
