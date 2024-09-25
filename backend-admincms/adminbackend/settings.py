@@ -9,12 +9,16 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api 
+import cloudinary.uploader
+import cloudinary.api
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -39,8 +43,29 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'cloudinary',
+    'cloudinary_storage',
     'admincms',
 ]
+
+# Media files (for file uploads)
+# Cloudinary configuration for storing media files
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dgfv6j82t',
+    'API_KEY': '235116669118225',
+    'API_SECRET': 'zRMrcJ0xAtw8sI_xV3v3GGx_0es',
+}
+cloudinary.config(
+    cloud_name='dgfv6j82t',
+    api_key='235116669118225',
+    api_secret='zRMrcJ0xAtw8sI_xV3v3GGx_0es'
+)
+
+# Cloudinary will handle media files
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+MEDIA_URL = '/media/'  # URL for media files
+# MEDIA_ROOT is no longer needed as Cloudinary handles media storage
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
@@ -50,6 +75,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ],
 }
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -60,8 +86,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = [
 
+CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
@@ -100,9 +126,9 @@ DATABASES = {
         'PORT': '26257',
         'sslmode': 'disable'
     }
-    }
+}
 
-
+DEBUG = 'True'
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

@@ -4,7 +4,7 @@ from .models import AdminCMS
 class AdminCMSSerializer(serializers.ModelSerializer):
     class Meta:
         model = AdminCMS
-        fields = ['id','account_type', 'currency_type']
+        fields = ['id','account_type', 'currency_type','icon']
 
     def validate(self, data):
         # Ensure at least one field is provided
