@@ -1,10 +1,12 @@
 from django.db import models
 import random
+from cloudinary.models import CloudinaryField
 
 class AdminCMS(models.Model):
     id = models.PositiveIntegerField(primary_key=True, editable=False)
     account_type = models.CharField(max_length=100, null=True, blank=True)
     currency_type = models.CharField(max_length=100, blank=True, null=True)
+    icon = CloudinaryField('icon', folder='admin', blank=True, null=True)
 
     def __str__(self):
         return f"Account: {self.account_type}, Currency: {self.currency_type}"
@@ -18,7 +20,6 @@ class AdminCMS(models.Model):
         super().save(*args, **kwargs)
 
     def generate_unique_id(self):
-        # Ensure the ID is always 5 digits
         while True:
             new_id = random.randint(100000, 999999)
             if not AdminCMS.objects.filter(id=new_id).exists():
