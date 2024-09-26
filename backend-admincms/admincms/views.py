@@ -55,5 +55,6 @@ class AccountTypeListView(APIView):
 
 class CurrencyTypeListView(APIView):
     def get(self, request, *args, **kwargs):
-        currency_types = AdminCMS.objects.exclude(currency_type__isnull=True).exclude(currency_type__exact='').values('id', 'currency_type')
-        return Response(currency_types, status=status.HTTP_200_OK)
+        currency_types = AdminCMS.objects.exclude(currency_type__isnull=True).exclude(currency_type__exact='')  # Fetch the queryset
+        serializer = AdminCMSSerializer(currency_types, many=True)  # Use the serializer
+        return Response(serializer.data, status=status.HTTP_200_OK)
