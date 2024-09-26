@@ -6,7 +6,7 @@ class AdminCMS(models.Model):
     id = models.PositiveIntegerField(primary_key=True, editable=False)
     account_type = models.CharField(max_length=100, null=True, blank=True)
     currency_type = models.CharField(max_length=100, blank=True, null=True)
-    icon = CloudinaryField('icon', folder='admin', blank=True, null=True)
+    icon = CloudinaryField('icon', folder='admin', blank=True, null=True)  # Cloudinary field to upload the icon
 
     def __str__(self):
         return f"Account: {self.account_type}, Currency: {self.currency_type}"
